@@ -1,0 +1,1 @@
+This is a multimodel retival augmented generation (RAG) app for medical applications
