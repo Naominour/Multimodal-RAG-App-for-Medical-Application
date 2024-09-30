@@ -1,10 +1,10 @@
-from langchain.chat_models import ChatOpenAI
-from langchain.embeddings import OpenAIEmbeddings
+from langchain_community.chat_models import ChatOpenAI
+from langchain_community.embeddings import OpenAIEmbeddings
+from langchain_community.vectorstores import FAISS
 from langchain.chains import LLMChain
 from langchain.prompts import PromptTemplate
 from langchain.schema.messages import HumanMessage, SystemMessage
 from langchain.schema.document import Document
-from langchain.vectorstores import FAISS
 from langchain.retrievers.multi_vector import MultiVectorRetriever
 import os
 import uuid
@@ -33,7 +33,7 @@ app.add_middleware(
 openai_api_key = os.getenv("OPENAI_API_KEY")
 embeddings = OpenAIEmbeddings(openai_api_key=openai_api_key)
 
-db = FAISS.load_local("faiss_index", embeddings)
+db = FAISS.load_local("faiss_index", embeddings, allow_dangerous_deserialization=True)
 
 prompt_template = """You are a vet doctor and an expert in analyzing dog's health.
 Answer the question based only on the following context, which can include text, images and tables:
