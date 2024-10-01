@@ -8,3 +8,15 @@ python-multipart
 uvicorn
 tiktoken
 langchain_community
+tesseract-ocr
+libtesseract-dev
+poppler-utils
+unstructured[all-docs]
+pydantic
+lxml
+tiktoken 
+opencv-python
+nltk
+transformers
+torch
+pillow
