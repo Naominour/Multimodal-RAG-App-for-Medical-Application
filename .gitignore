@@ -1,3 +1,4 @@
 /Output
 venv/
+__pycache__/
 .AC-Aids.pdf
