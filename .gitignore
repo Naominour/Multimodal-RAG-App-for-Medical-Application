@@ -1,4 +1,7 @@
 /Output
+/Output1
 venv/
 __pycache__/
 .AC-Aids.pdf
+.finacialplanning.pdf
+/faiss_index

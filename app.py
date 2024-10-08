@@ -35,12 +35,13 @@ embeddings = OpenAIEmbeddings(openai_api_key=openai_api_key)
 
 db = FAISS.load_local("faiss_index", embeddings, allow_dangerous_deserialization=True)
 
-prompt_template = """You are a vet doctor and an expert in analyzing dog's health.
-Answer the question based only on the following context, which can include text, images and tables:
+prompt_template = """You are a finance secialist and an expert in analyzing financial planning.
+Answer the question based on the following answer, which can include text,
+images, and tables:
 {context}
 Question: {question}
-Don't answer if you are not sure and decline to answer and say "Sorry, I don't have much information about it."
-Just return the helpful answer in as much as detailed possible.
+Don't answer is you are not sure and decline to answer and say "Sorry, I don't have much information about this"
+Just return the helpful answer in as much as detaile possible.
 Answer:
 """
 
@@ -56,6 +57,10 @@ async def get_answer(question: str = Form(...)):
     relevant_docs = db.similarity_search(question)
     context = ""
     relevant_images = []
+    
+    print(f"Question: {question}")
+    print(f"Relevant Documents: {relevant_docs}")
+    
     for d in relevant_docs:
         if d.metadata['type'] == 'text':
             context += '[text]' + d.metadata['original_content']
@@ -64,5 +69,9 @@ async def get_answer(question: str = Form(...)):
         elif d.metadata['type'] == 'image':
             context += '[image]' + d.page_content
             relevant_images.append(d.metadata['original_content'])
+    
+    print(f"Constructed Context: {context}")
+    print(f"Extracted Relevant Images: {relevant_images}")
+
     result = qa_chain.run({'context': context, 'question': question})
-    return JSONResponse({"relevant_images": relevant_images[0], "result": result})
+    return JSONResponse({"relevant_images": relevant_images if relevant_images else None, "result": result})
