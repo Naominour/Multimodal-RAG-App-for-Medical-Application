@@ -32,5 +32,5 @@ This is a **Generative AI** project designed to make it easier to understand and
     ```
 2. Install the dependencies:
    ```bash
-pip install -r requirements.txt
+   pip install -r requirements.txt
     ```
